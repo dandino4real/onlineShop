@@ -4,7 +4,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { Link, useNavigate } from "react-router-dom";
-
+import { toast } from "react-toastify";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,14 +14,14 @@ import { logoutUser } from "../features/authSlice";
 function NavbarComponent() {
   const { cartTotalQuantity } = useSelector((state) => state.cart);
   const auth = useSelector((state) => state.auth);
- const navigate = useNavigate()
- const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  useEffect(()=>{
-    if(auth._id){
-      navigate('/cart')
+  useEffect(() => {
+    if (auth._id) {
+      navigate("/cart");
     }
-  },[auth._id, navigate])
+  }, [auth._id, navigate]);
 
   return (
     <Navbar bg="dark" expand="lg">
@@ -54,10 +54,19 @@ function NavbarComponent() {
             </Nav.Link>
 
             {auth._id ? (
-              // <Navbar.Text className="mx-5 text-white pointer" onClick={()=>dispatch(logoutUser())}>logout</Navbar.Text>
-              <Nav.Link as={Link} to="/#" className="ms-5 text-white" onClick={()=>dispatch(logoutUser())}>
-              Logout
-            </Nav.Link>
+              <Nav.Link
+                as={Link}
+                to="/#"
+                className="ms-5 text-white"
+                onClick={() => {
+                  dispatch(logoutUser(null));
+                  toast.warning("Logged out", {
+                    position: toast.POSITION.TOP_RIGHT,
+                  });
+                }}
+              >
+                Logout
+              </Nav.Link>
             ) : (
               <>
                 <Nav.Link as={Link} to="/login" className="ms-5 text-white">

@@ -1,7 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { Container, Row, Col } from 'react-bootstrap';
@@ -10,6 +10,8 @@ import { addToCart, decreaseCart, getTotals, removeFromCart } from '../features/
 const Cart = () => {
   const cart = useSelector(state => state.cart);
   const dispatch = useDispatch()
+
+  const navigate = useNavigate()
 
   useEffect(()=>{
     dispatch(getTotals())
