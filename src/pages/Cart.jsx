@@ -6,9 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { Container, Row, Col } from 'react-bootstrap';
 import { addToCart, decreaseCart, getTotals, removeFromCart } from '../features/cartSlice';
+import PayButton from './PayButton';
 
 const Cart = () => {
   const cart = useSelector(state => state.cart);
+  const auth = useSelector(state=>state.auth)
   const dispatch = useDispatch()
 
   const navigate = useNavigate()
@@ -102,7 +104,11 @@ const Cart = () => {
                   <span>${cart.cartTotalAmount}</span>
                 </div>
                 <p>Taxes and shipping calculated at checkout</p>
-                <button>checkout</button>
+                {auth._id? 
+                <PayButton cartItems={cart.cartItems}/> :
+                <button onClick={()=>navigate('/login')} >Login to Checkout</button> 
+                
+              }
                 <div>
                   <Link to='/'><span><FontAwesomeIcon icon={faArrowLeftLong} /> Continue Shopping</span></Link>
                 </div>

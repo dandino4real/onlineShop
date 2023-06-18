@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
-import { clearCart, getTotals } from "../slices/cartSlice";
+import { clearCart, getTotals } from "../features/cartSlice";
+import { Container, Row, Col } from 'react-bootstrap'
+
 
 const CheckoutSuccess = () => {
   const dispatch = useDispatch();
@@ -30,18 +31,4 @@ const CheckoutSuccess = () => {
 
 export default CheckoutSuccess;
 
-const Container = styled.div`
-  min-height: 80vh;
-  max-width: 800px;
-  width: 100%;
-  margin: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
 
-  h2 {
-    margin-bottom: 0.5rem;
-    color: #029e02;
-  }
-`;

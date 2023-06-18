@@ -13,7 +13,7 @@ const Register = () => {
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
 
-  console.log(auth)
+  
 
   const [formData, setFormData] = useState({
     name: "",
@@ -37,9 +37,7 @@ const Register = () => {
       setMessage("Passwords do not match");
     } else {
       dispatch(registerUser(formData));
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
+      
     }
   };
   const handleChange = (e) => {
@@ -47,9 +45,7 @@ const Register = () => {
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
   return (
-    <Formcontainer>
-      {message && <Message variant="danger">{message}</Message>}
-      {auth. registerStatus === 'rejected' ? <Message variant='danger'>{auth.registerError}</Message> : null}    
+    <Formcontainer>   
       <h1>Sign-Up</h1>
       <Form onSubmit={submitHandler}>
         <Form.Group controlId="name" className="mb-3">
@@ -57,6 +53,7 @@ const Register = () => {
           <Form.Control
             type="text"
             name="name"
+            value={formData.name}
             placeholder="Enter name"
             onChange={handleChange}
           ></Form.Control>
@@ -67,6 +64,7 @@ const Register = () => {
           <Form.Control
             type="email"
             name="email"
+            value={formData.email}
             placeholder="Enter email"
             onChange={handleChange}
           ></Form.Control>
@@ -77,6 +75,8 @@ const Register = () => {
           <Form.Control
             type="password"
             name="password"
+            value={formData.password}
+
             placeholder="Enter password"
             onChange={handleChange}
           ></Form.Control>
@@ -87,6 +87,7 @@ const Register = () => {
           <Form.Control
             type="password"
             name="confirmpassword"
+            value={formData.confirmpassword}
             placeholder="Confirm password"
             onChange={handleChange}
           ></Form.Control>
@@ -95,6 +96,8 @@ const Register = () => {
         <Button type="submit" variant="primary">
           {auth.rigisterStatus === "pending" ? "Submitting..." : "register"}
         </Button>
+        {message && <Message variant="danger">{message}</Message>}
+      {auth.registerStatus === 'rejected' ? <Message variant='danger'>{auth.registerError}</Message> : null} 
       </Form>
 
       <Row>

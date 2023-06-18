@@ -23,8 +23,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log(user);
     dispatch(loginUser(user));
   };
 
