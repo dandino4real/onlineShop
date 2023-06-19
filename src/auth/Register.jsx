@@ -13,8 +13,6 @@ const Register = () => {
   const navigate = useNavigate();
   const auth = useSelector((state) => state.auth);
 
-  
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -33,21 +31,29 @@ const Register = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log(formData);
+    console.log(formData.password);
+    console.log(formData.confirmpassword);
     if (formData.password !== formData.confirmpassword) {
       setMessage("Passwords do not match");
     } else {
       dispatch(registerUser(formData));
-      
     }
   };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
+
   return (
-    <Formcontainer>   
+    <Formcontainer>
       <h1>Sign-Up</h1>
       <Form onSubmit={submitHandler}>
+      {message && <Message variant="danger">{message}</Message>}
+        {auth.registerStatus === "rejected" ? (
+          <Message variant="danger">{auth.registerError}</Message>
+        ) : null}
         <Form.Group controlId="name" className="mb-3">
           <Form.Label>Name</Form.Label>
           <Form.Control
@@ -76,7 +82,6 @@ const Register = () => {
             type="password"
             name="password"
             value={formData.password}
-
             placeholder="Enter password"
             onChange={handleChange}
           ></Form.Control>
@@ -96,8 +101,7 @@ const Register = () => {
         <Button type="submit" variant="primary">
           {auth.rigisterStatus === "pending" ? "Submitting..." : "register"}
         </Button>
-        {message && <Message variant="danger">{message}</Message>}
-      {auth.registerStatus === 'rejected' ? <Message variant='danger'>{auth.registerError}</Message> : null} 
+        
       </Form>
 
       <Row>
@@ -114,71 +118,3 @@ const Register = () => {
 };
 
 export default Register;
-
-// const Register = () => {
-// const dispatch = useDispatch();
-// const navigate = useNavigate();
-// const auth = useSelector((state) => state.auth);
-
-//   const [user, setUser] = useState({
-//     name: "",
-//     email: "",
-//     password: "",
-//   });
-
-// useEffect(() => {
-//   if (auth._id) {
-//     navigate("/cart");
-//   }
-// }, [auth._id, navigate]);
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     setUser({
-//       name: "",
-//       email: "",
-//       password: "",
-//     });
-//     console.log(user);
-// dispatch(registerUser(user));
-// setUser({
-//   name: "",
-//   email: "",
-//   password: "",
-// });
-//   };
-
-//   return (
-//     <>
-//       <form onSubmit={handleSubmit}>
-//         <h2>Register</h2>
-//         <input
-//           type="text"
-//           placeholder="name"
-//           value={user.name}
-//           onChange={(e) => setUser({ ...user, name: e.target.value })}
-//         />
-//         <input
-//           type="email"
-//           placeholder="email"
-//           value={user.email}
-//           onChange={(e) => setUser({ ...user, email: e.target.value })}
-//         />
-//         <input
-//           type="password"
-//           placeholder="password"
-//           value={user.password}
-//           onChange={(e) => setUser({ ...user, password: e.target.value })}
-//         />
-//         <button>
-// {auth.rigisterStatus === "pending" ? "Submitting..." : "Register"}
-//         </button>
-//         {auth.registerStatus === "rejected" ? (
-//           <p>{auth.registerError}</p>
-//         ) : null}
-//       </form>
-//     </>
-//   );
-// };
-
-// export default Register;
