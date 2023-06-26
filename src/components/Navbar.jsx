@@ -54,19 +54,24 @@ function NavbarComponent() {
             </Nav.Link>
 
             {auth._id ? (
-              <Nav.Link
-                as={Link}
-                to="/#"
-                className="ms-5 text-white"
-                onClick={() => {
-                  dispatch(logoutUser(null));
-                  toast.warning("Logged out", {
-                    position: toast.POSITION.TOP_RIGHT,
-                  });
-                }}
-              >
-                Logout
-              </Nav.Link>
+              <>
+                <Nav.Link as={Link} to="/admin" className="ms-5 text-white">
+                  Admin
+                </Nav.Link>
+                <Nav.Link
+                  as={Link}
+                  to="/#"
+                  className="ms-5 text-white"
+                  onClick={() => {
+                    dispatch(logoutUser(null));
+                    toast.warning("Logged out", {
+                      position: toast.POSITION.TOP_RIGHT,
+                    });
+                  }}
+                >
+                  Logout
+                </Nav.Link>
+              </>
             ) : (
               <>
                 <Nav.Link as={Link} to="/login" className="ms-5 text-white">

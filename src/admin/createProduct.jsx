@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import { PrimaryButton } from "./CommonStyled";
-import { productsCreate } from "../../slices/productsSlice";
+
+
+import { productsCreate } from "../features/productSlice";
 
 const CreateProduct = () => {
   const dispatch = useDispatch();
@@ -49,8 +49,8 @@ const CreateProduct = () => {
   };
 
   return (
-    <StyledCreateProduct>
-      <StyledForm onSubmit={handleSubmit}>
+    <>
+      <div onSubmit={handleSubmit}>
         <h3>Create a Product</h3>
         <input
           id="imgUpload"
@@ -85,11 +85,11 @@ const CreateProduct = () => {
           required
         />
 
-        <PrimaryButton type="submit">
+        <button type="submit">
           {createStatus === "pending" ? "Submitting" : "Submit"}
-        </PrimaryButton>
-      </StyledForm>
-      <ImagePreview>
+        </button>
+      </div>
+      <div>
         {productImg ? (
           <>
             <img src={productImg} alt="error!" />
@@ -97,8 +97,8 @@ const CreateProduct = () => {
         ) : (
           <p>Product image upload preview will appear here!</p>
         )}
-      </ImagePreview>
-    </StyledCreateProduct>
+      </div>
+    </>
   );
 };
 
