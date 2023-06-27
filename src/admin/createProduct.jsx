@@ -92,7 +92,7 @@ const CreateProduct = () => {
       <div>
         {productImg ? (
           <>
-            <img src={productImg} alt="error!" />
+            <img src={productImg} alt="product-image" />
           </>
         ) : (
           <p>Product image upload preview will appear here!</p>

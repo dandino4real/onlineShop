@@ -11,8 +11,9 @@ import Register from "./auth/Register";
 import Login from "./auth/Login";
 import CheckoutSuccess from "./pages/CheckoutSuccess";
 import Dashboard from "./admin/Dashboard";
-import Products from "./admin/Product";
+import Products from "./admin/Products";
 import CreateProduct from "./admin/createProduct";
+import Summary from "./admin/Summary";
 
 function App() {
   return (
@@ -25,8 +26,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/admin" element={<Dashboard />}>
-          <Route path="products" element={<Products />} />
-          <Route path="products" element={<CreateProduct />} />
+          <Route path="products" element={<Products />}>
+            <Route path="create-product" element={<CreateProduct />} />
+          </Route>
+          <Route path="summary" element={<Summary />} />
         </Route>
         <Route path="/checkout-success" element={<CheckoutSuccess />} />
         <Route path="*" element={<NotFound />} />
