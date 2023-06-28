@@ -7,7 +7,7 @@ import authReducer, { loadUser } from "../features/authSlice";
 
 const store = configureStore({
     reducer:{
-        // products: productReducer,
+        products: productReducer,
         [productsApi.reducerPath]:productsApi.reducer,
         cart: cartReducer,
         auth:authReducer,
@@ -17,7 +17,7 @@ const store = configureStore({
         return getDefaultMiddleware().concat(productsApi.middleware)
     }
 })
-// store.dispatch(productsFetch())
+store.dispatch(productsFetch())
 store.dispatch(getTotals())
 store.dispatch(loadUser(null))
 

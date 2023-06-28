@@ -8,7 +8,7 @@ const Dashboard = () => {
 
   return (
     <>
-      <div style={{display:flex}}>
+      <div>
         <h3>Quick Links</h3>
         <NavLink
           className={({ isActive }) =>

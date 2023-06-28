@@ -1,19 +1,23 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { Form, Button, Row, Col } from "react-bootstrap";
+import Formcontainer from "../components/FormContainer";
+import Message from "../components/Message";
 import { loginUser } from "../features/authSlice";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Login = () => {
-  
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
 
-  const [user, setUser] = useState({
+  const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const redirect = "/register";
 
   useEffect(() => {
     if (auth._id) {
@@ -23,29 +27,57 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUser(user));
+    dispatch(loginUser(formData));
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <input
-          type="email"
-          placeholder="email"
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          onChange={(e) => setUser({ ...user, password: e.target.value })}
-        />
-        <button>
+    <Formcontainer>
+      <h1>Login</h1>
+      <Form onSubmit={handleSubmit}>
+        {auth.loginStatus === "rejected" ? (
+          <Message>{auth.loginError}</Message>
+        ) : null}
+        <Form.Group controlId="name" className="mb-3">
+          <Form.Label>Email Address</Form.Label>
+          <Form.Control
+            type="text"
+            name="email"
+            value={formData.email}
+            placeholder="Enter email"
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+          ></Form.Control>
+        </Form.Group>
+
+        <Form.Group controlId="email" className="mb-3">
+          <Form.Label>Password</Form.Label>
+          <Form.Control
+            type="password"
+            name="password"
+            value={formData.email}
+            placeholder="Enter email"
+            onChange={(e) =>
+              setFormData({ ...formData, password: e.target.value })
+            }
+          ></Form.Control>
+        </Form.Group>
+
+        <Button type="submit" variant="primary">
           {auth.loginStatus === "pending" ? "Submitting..." : "Login"}
-        </button>
-        {auth.loginStatus === "rejected" ? <p>{auth.loginError}</p> : null}
-      </form>
-    </>
+        </Button>
+      </Form>
+
+      <Row>
+        <Col className="py-3">
+          New Customer?{" "}
+          <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
+            {" "}
+            register
+          </Link>
+        </Col>
+      </Row>
+    </Formcontainer>
   );
 };
 

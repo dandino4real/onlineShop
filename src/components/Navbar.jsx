@@ -55,9 +55,12 @@ function NavbarComponent() {
 
             {auth._id ? (
               <>
-                <Nav.Link as={Link} to="/admin/summary" className="ms-5 text-white">
-                  Admin
-                </Nav.Link>
+              {auth.isAdmin? (
+                 <Nav.Link as={Link} to="/admin/summary" className="ms-5 text-white">
+                 Admin
+               </Nav.Link>
+              ): null}
+               
                 <Nav.Link
                   as={Link}
                   to="/#"

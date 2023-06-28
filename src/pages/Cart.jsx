@@ -63,10 +63,10 @@ const Cart = () => {
             </Col>
           </Row>
           {cart.cartItems?.map(cartItem => (
-            <Row key={cartItem.id} className='py-3' style={{borderTop: "1px solid #000000"}}>
+            <Row key={cartItem._id} className='py-3' style={{borderTop: "1px solid #000000"}}>
               <Col>
                 <div className='container' style={{display:"flex", gap:"10px", }}>
-                  <img src={cartItem.image} alt={cartItem.name} style={{ width: '80px' }} />
+                  <img src={cartItem.image.url} alt={cartItem.name} style={{ width: '80px' }} />
                   <div>
                     <h3 style={{fontSize:'14px'}}>{cartItem.name}</h3>
                     <p>{cartItem.desc}</p>
