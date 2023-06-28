@@ -48,8 +48,8 @@ const Register = () => {
 
   return (
     <Formcontainer>
-      <h1>Sign-Up</h1>
-      <Form onSubmit={submitHandler}>
+      <h1>Register</h1>
+      <Form onSubmit={submitHandler} className="border p-3">
       {message && <Message variant="danger">{message}</Message>}
         {auth.registerStatus === "rejected" ? (
           <Message variant="danger">{auth.registerError}</Message>
@@ -93,13 +93,13 @@ const Register = () => {
             type="password"
             name="confirmpassword"
             value={formData.confirmpassword}
-            placeholder="Confirm password"
+            placeholder="Enter password"
             onChange={handleChange}
           ></Form.Control>
         </Form.Group>
 
         <Button type="submit" variant="primary">
-          {auth.rigisterStatus === "pending" ? "Submitting..." : "register"}
+          {auth.rigisterStatus === "pending" ? "Submitting..." : "sign-up"}
         </Button>
         
       </Form>

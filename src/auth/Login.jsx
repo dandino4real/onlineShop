@@ -32,8 +32,9 @@ const Login = () => {
 
   return (
     <Formcontainer>
+      
       <h1>Login</h1>
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} className="border p-3">
         {auth.loginStatus === "rejected" ? (
           <Message>{auth.loginError}</Message>
         ) : null}
@@ -56,7 +57,7 @@ const Login = () => {
             type="password"
             name="password"
             value={formData.email}
-            placeholder="Enter email"
+            placeholder="Enter password"
             onChange={(e) =>
               setFormData({ ...formData, password: e.target.value })
             }
@@ -64,7 +65,7 @@ const Login = () => {
         </Form.Group>
 
         <Button type="submit" variant="primary">
-          {auth.loginStatus === "pending" ? "Submitting..." : "Login"}
+          {auth.loginStatus === "pending" ? "Submitting..." : "login"}
         </Button>
       </Form>
 
