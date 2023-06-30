@@ -20,14 +20,14 @@ const cartSlice = createSlice({
       if (itemIndex >= 0) {
         state.cartItems[itemIndex].cartQuantity += 1;
         toast.info(`${action.payload.name} has been added to your cart`, {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.BOTTOM_LEFT,
         });
       } else {
         const tempProduct = { ...action.payload, cartQuantity: 1 };
         state.cartItems.push(tempProduct);
         toast.success(
           `${action.payload.name} has been added to your  to cart`,
-          { position: toast.POSITION.TOP_RIGHT }
+          { position: toast.POSITION.BOTTOM_LEFT}
         );
       }
 
@@ -40,7 +40,7 @@ const cartSlice = createSlice({
       if (state.cartItems[itemIndex].cartQuantity > 1) {
         state.cartItems[itemIndex].cartQuantity -= 1;
         toast.info(` Decreased ${action.payload.name} cart quantity`, {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.BOTTOM_LEFT,
         });
       } else if (state.cartItems[itemIndex].cartQuantity === 1) {
         const nextCartItems = state.cartItems.filter(
@@ -48,7 +48,7 @@ const cartSlice = createSlice({
         );
         state.cartItems = nextCartItems;
         toast.error(`${action.payload.name} has been removed from your cart`, {
-          position: toast.POSITION.TOP_RIGHT,
+          position: toast.POSITION.BOTTOM_LEFT,
         });
       }
 
@@ -61,7 +61,7 @@ const cartSlice = createSlice({
       state.cartItems = nextCartItems;
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       toast.error(`${action.payload.name} has been removed from your cart`, {
-        position: toast.POSITION.TOP_RIGHT,
+        position: toast.POSITION.BOTTOM_LEFT,
       });
     },
     getTotals(state, action) {
@@ -87,8 +87,9 @@ const cartSlice = createSlice({
     
     clearCart(state, action){
         state.cartItems = []
+        state.cartTotalAmount = 0;
         toast.error(`All cart has been deleted`, {
-            position: toast.POSITION.TOP_RIGHT,
+            position: toast.POSITION.BOTTOM_LEFT,
           });
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
 

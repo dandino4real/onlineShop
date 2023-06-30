@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetAllProductsQuery } from "../features/productApi";
+// import { useGetAllProductsQuery } from "../features/productApi";
 import ProductsCard from "../components/Card";
 import { useSelector } from "react-redux";
 
@@ -8,7 +8,7 @@ const Home = () => {
   // const { data, error, isLoading } = useGetAllProductsQuery();
   return (
     <div className="container">
-      {status === "sucesss" ? (
+      {status === "success" ? (
         <>
           <h2 className="py-5 text-center">New Arrivals</h2>
           <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3">

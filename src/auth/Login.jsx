@@ -33,8 +33,8 @@ const Login = () => {
   return (
     <Formcontainer>
       
-      <h1>Login</h1>
-      <Form onSubmit={handleSubmit} className="border p-3">
+      <h1>Log in to your account</h1>
+      <Form onSubmit={handleSubmit} className="p-3">
         {auth.loginStatus === "rejected" ? (
           <Message>{auth.loginError}</Message>
         ) : null}
@@ -44,7 +44,7 @@ const Login = () => {
             type="text"
             name="email"
             value={formData.email}
-            placeholder="Enter email"
+    
             onChange={(e) =>
               setFormData({ ...formData, email: e.target.value })
             }
@@ -56,16 +56,15 @@ const Login = () => {
           <Form.Control
             type="password"
             name="password"
-            value={formData.email}
-            placeholder="Enter password"
+            value={formData.password}
             onChange={(e) =>
               setFormData({ ...formData, password: e.target.value })
             }
           ></Form.Control>
         </Form.Group>
 
-        <Button type="submit" variant="primary">
-          {auth.loginStatus === "pending" ? "Submitting..." : "login"}
+        <Button type="submit" variant="dark">
+          {auth.loginStatus === "pending" ? "submitting..." : "login"}
         </Button>
       </Form>
 

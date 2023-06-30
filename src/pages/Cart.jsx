@@ -1,124 +1,139 @@
-
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
-import { Container, Row, Col } from 'react-bootstrap';
-import { addToCart, decreaseCart, getTotals, removeFromCart } from '../features/cartSlice';
-import PayButton from './PayButton';
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
+import { faSquareMinus } from "@fortawesome/free-solid-svg-icons";
+import { Container, Table, Button, Row, Col, Image } from "react-bootstrap";
+import { addToCart, decreaseCart, getTotals, removeFromCart } from "../features/cartSlice";
+import PayButton from "./PayButton";
 
 const Cart = () => {
-  const cart = useSelector(state => state.cart);
-  const auth = useSelector(state=>state.auth)
-  const dispatch = useDispatch()
+  const cart = useSelector((state) => state.cart);
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  useEffect(() => {
+    dispatch(getTotals());
+  }, [cart, dispatch]);
 
-  useEffect(()=>{
-    dispatch(getTotals())
-  }, [cart, dispatch])
+  const handleIncreaseCart = (cartItem) => {
+    dispatch(addToCart(cartItem));
+  };
 
+  const handleDecreaseCart = (cartItem) => {
+    dispatch(decreaseCart(cartItem));
+  };
 
-  const handleIncreaseCart = cartItem =>{
-    dispatch(addToCart(cartItem))
-  }
+  const handleRemoveFromCart = (cartItem) => {
+    dispatch(removeFromCart(cartItem));
+  };
 
-  const handleDecreaseCart = cartItem =>{
-    dispatch(decreaseCart(cartItem))
-  }
-
-  const handleRemoveFromCart = cartItem =>{
-    dispatch(removeFromCart(cartItem))
-  }
-
-  const clearCart = ()=>{
-    dispatch(clearCart())
-  }
+  const clearCart = () => {
+    dispatch(clearCart());
+  };
 
   return (
     <Container>
-      <h2>Shopping Cart</h2>
+      <Row>
+        <Col className="fs-1 fw-1 text-center mt-2">Shopping Cart</Col>
+      </Row>
+
       {cart.cartItems.length === 0 ? (
-        <div>
-          <p>Your cart is currently empty</p>
-          <div>
-            <Link to='/'><span><FontAwesomeIcon icon={faArrowLeftLong} /> Start Shopping</span></Link>
-          </div>
-        </div>
-      ) : (
         <>
           <Row>
-            <Col>
-              <h3>Product</h3>
-            </Col>
-            <Col>
-              <h3>Price</h3>
-            </Col>
-            <Col>
-              <h3>Quantity</h3>
-            </Col>
-            <Col>
-              <h3>Total</h3>
+            <Col className="fs-5 text-center">Your cart is currently empty</Col>
+          </Row>
+          <Row>
+            <Col className="fs-5 text-center">
+              <Link to="/" className="d-inline-block">
+                <FontAwesomeIcon icon={faArrowLeftLong} /> Start Shopping
+              </Link>
             </Col>
           </Row>
-          {cart.cartItems?.map(cartItem => (
-            <Row key={cartItem._id} className='py-3' style={{borderTop: "1px solid #000000"}}>
-              <Col>
-                <div className='container' style={{display:"flex", gap:"10px", }}>
-                  <img src={cartItem.image.url} alt={cartItem.name} style={{ width: '80px' }} />
-                  <div>
-                    <h3 style={{fontSize:'14px'}}>{cartItem.name}</h3>
-                    <p>{cartItem.desc}</p>
-                    <button onClick={()=>handleRemoveFromCart(cartItem)}>Remove</button>
-                  </div>
-                </div>
-              </Col>
-              <Col>
-                <div className='price'>
-                  ${cartItem.price}
-                </div>
-              </Col>
-              <Col>
-                <div className='quantity' style={{display:"flex", gap:"10px"}}>
-                  <button onClick={()=>handleDecreaseCart(cartItem)}>-</button>
-                  <div>{cartItem.cartQuantity}</div>
-                  <button onClick={()=>handleIncreaseCart(cartItem)}>+</button>
-                </div>
-              </Col>
-              <Col>
-                <div className='total'>
-                  ${cartItem.price * cartItem.cartQuantity}
-                </div>
-              </Col>
-            </Row>
-          ))}
-          <Row className='py-5'>
-            <Col>
-              <button onClick={()=>clearCart()}>Clear Cart</button>
-            </Col>
-            <Col>
+        </>
+      ) : (
+        <>
+          <Table striped bordered hover responsive className="table-sm">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.cartItems.map((cartItem) => (
+                <tr key={cartItem._id}>
+                  <td>
+                    <Row className="no-gutters">
+                      <Col xs={12} sm={3}>
+                        <Image src={cartItem.image} alt={cartItem.name} width="50px" />
+                      </Col>
+                     
+                    </Row>
+                  </td>
+                  <td>
+                  <Row className="no-gutters">
+                     
+                      <Col xs={12} sm={9}>
+                        <div className="fs-9">{cartItem.name}</div>
+                        <div className="fs-9">{cartItem.desc}</div>
+                      </Col>
+                    </Row>
+                  </td>
+                  <td>${cartItem.price}</td>
+                  <td>{cartItem.cartQuantity}</td>
+                  <td>${cartItem.price * cartItem.cartQuantity}</td>
+                  <td>
+                    <Button variant="light" onClick={() => handleIncreaseCart(cartItem)}>
+                      <FontAwesomeIcon icon={faSquarePlus} />
+                    </Button>
+                    <Button variant="light" onClick={() => handleDecreaseCart(cartItem)}>
+                      <FontAwesomeIcon icon={faSquareMinus} />
+                    </Button>{" "}
+                    <Button variant="secondary" onClick={() => handleRemoveFromCart(cartItem)}>
+                      <FontAwesomeIcon icon={faTrashCan} />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+          <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center">
+            <div>
+              <Button variant="secondary" onClick={() => clearCart()} className="my-2">
+                Clear Cart
+              </Button>
+            </div>
+            <div className="text-start d-inline-block my-3">
+              <div className="fs-9 "><h5>Subtotal: ${cart.cartTotalAmount}</h5></div>
+              <div className="fs-9">Taxes and shipping calculated at checkout</div>
+              {auth._id ? (
+                <PayButton cartItems={cart.cartItems} />
+              ) : (
+                <Button  variant="warning" onClick={() => navigate("/login")}>
+                  Login to Checkout
+                </Button>
+              )}
               <div>
-                <div>
-                  <span>subtotal</span>
-                  <span>${cart.cartTotalAmount}</span>
-                </div>
-                <p>Taxes and shipping calculated at checkout</p>
-                {auth._id? 
-                <PayButton cartItems={cart.cartItems}/> :
-                <button onClick={()=>navigate('/login')} >Login to Checkout</button> 
-                
-              }
-                <div>
-                  <Link to='/'><span><FontAwesomeIcon icon={faArrowLeftLong} /> Continue Shopping</span></Link>
-                </div>
+
+              <Link to="/">
+                <FontAwesomeIcon icon={faArrowLeftLong} /> Continue Shopping
+              </Link>
               </div>
-            </Col>
-          </Row>
+            </div>
+          </div>
         </>
       )}
     </Container>
   );
-}
+};
 
 export default Cart;

@@ -78,7 +78,7 @@ function NavbarComponent() {
             ) : (
               <>
                 <Nav.Link as={Link} to="/login" className="ms-5 text-white">
-                  Login
+                  Sign-In
                 </Nav.Link>
                 <Nav.Link as={Link} to="/register" className="ms-1 text-white">
                   Register

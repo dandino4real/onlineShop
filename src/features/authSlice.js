@@ -19,16 +19,17 @@ const initialState = {
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (values, { rejectWithValue }) => {
+
     try {
+    
       const token = await axios.post(`${url}/register`, {
         name: values.name,
         email: values.email,
         password: values.password,
         confirmpassword: values.confirmpassword
       });
-
+      
       localStorage.setItem("token", token.data);
-
       return token.data;
     } catch (error) {
       console.log(error.response.data);
@@ -93,7 +94,6 @@ const authSlice = createSlice({
     },
     logoutUser(state, action) {
       localStorage.removeItem("token");
-
       return {
         ...state,
         token: "",
@@ -105,6 +105,7 @@ const authSlice = createSlice({
         registerError: "",
         loginStatus: "",
         loginError: "",
+        userLoaded:false
       };
     },
   },

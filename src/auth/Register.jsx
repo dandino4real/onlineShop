@@ -31,9 +31,7 @@ const Register = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(formData);
-    console.log(formData.password);
-    console.log(formData.confirmpassword);
+    
     if (formData.password !== formData.confirmpassword) {
       setMessage("Passwords do not match");
     } else {
@@ -48,9 +46,9 @@ const Register = () => {
 
   return (
     <Formcontainer>
-      <h1>Register</h1>
-      <Form onSubmit={submitHandler} className="border p-3">
-      {message && <Message variant="danger">{message}</Message>}
+      <h1>Create your account</h1>
+      <Form onSubmit={submitHandler} className=" p-3">
+        {message && <Message variant="danger">{message}</Message>}
         {auth.registerStatus === "rejected" ? (
           <Message variant="danger">{auth.registerError}</Message>
         ) : null}
@@ -60,50 +58,41 @@ const Register = () => {
             type="text"
             name="name"
             value={formData.name}
-            placeholder="Enter name"
             onChange={handleChange}
           ></Form.Control>
         </Form.Group>
-
         <Form.Group controlId="email" className="mb-3">
           <Form.Label>Email Address</Form.Label>
           <Form.Control
             type="email"
             name="email"
             value={formData.email}
-            placeholder="Enter email"
             onChange={handleChange}
           ></Form.Control>
         </Form.Group>
-
         <Form.Group controlId="password" className="mb-3">
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
             name="password"
             value={formData.password}
-            placeholder="Enter password"
             onChange={handleChange}
           ></Form.Control>
         </Form.Group>
-
         <Form.Group controlId="confirmpassword" className="mb-3">
           <Form.Label>Confirm Password</Form.Label>
           <Form.Control
             type="password"
             name="confirmpassword"
             value={formData.confirmpassword}
-            placeholder="Enter password"
             onChange={handleChange}
           ></Form.Control>
         </Form.Group>
 
-        <Button type="submit" variant="primary">
-          {auth.rigisterStatus === "pending" ? "Submitting..." : "sign-up"}
+        <Button type="submit" variant="dark">
+          {auth.registerStatus === "pending" ? "submitting..." : "sign-up"}
         </Button>
-        
       </Form>
-
       <Row>
         <Col className="py-3">
           Have An Account?{" "}
