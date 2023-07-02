@@ -17,11 +17,11 @@ function NavbarComponent() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (auth._id) {
-      navigate("/cart");
-    }
-  }, [auth._id, navigate]);
+  // useEffect(() => {
+  //   if (auth._id ) {
+  //     navigate("/cart");
+  //   }
+  // }, [auth._id, navigate]);
 
   return (
     <Navbar bg="dark" expand="lg">

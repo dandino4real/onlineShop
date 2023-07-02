@@ -6,8 +6,8 @@ import { faArrowLeftLong } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { faSquarePlus } from "@fortawesome/free-solid-svg-icons";
 import { faSquareMinus } from "@fortawesome/free-solid-svg-icons";
-import { Container, Table, Button, Row, Col, Image } from "react-bootstrap";
-import { addToCart, decreaseCart, getTotals, removeFromCart } from "../features/cartSlice";
+import { Container, Table, Button,BottonGroup, Row, Col, Image, ButtonGroup } from "react-bootstrap";
+import { addToCart, clearCart, decreaseCart, getTotals, removeFromCart } from "../features/cartSlice";
 import PayButton from "./PayButton";
 
 const Cart = () => {
@@ -32,14 +32,14 @@ const Cart = () => {
     dispatch(removeFromCart(cartItem));
   };
 
-  const clearCart = () => {
+  const handleClearCart = () => {
     dispatch(clearCart());
   };
 
   return (
     <Container>
       <Row>
-        <Col className="fs-1 fw-1 text-center mt-2">Shopping Cart</Col>
+        <Col className="fs-1 fw-1 text-center mt-2 mb-5">Shopping Cart</Col>
       </Row>
 
       {cart.cartItems.length === 0 ? (
@@ -49,7 +49,7 @@ const Cart = () => {
           </Row>
           <Row>
             <Col className="fs-5 text-center">
-              <Link to="/" className="d-inline-block">
+              <Link to = "/" className="d-inline-block">
                 <FontAwesomeIcon icon={faArrowLeftLong} /> Start Shopping
               </Link>
             </Col>
@@ -92,6 +92,7 @@ const Cart = () => {
                   <td>{cartItem.cartQuantity}</td>
                   <td>${cartItem.price * cartItem.cartQuantity}</td>
                   <td>
+                    <ButtonGroup>
                     <Button variant="light" onClick={() => handleIncreaseCart(cartItem)}>
                       <FontAwesomeIcon icon={faSquarePlus} />
                     </Button>
@@ -101,6 +102,7 @@ const Cart = () => {
                     <Button variant="secondary" onClick={() => handleRemoveFromCart(cartItem)}>
                       <FontAwesomeIcon icon={faTrashCan} />
                     </Button>
+                    </ButtonGroup>
                   </td>
                 </tr>
               ))}
@@ -108,7 +110,7 @@ const Cart = () => {
           </Table>
           <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center">
             <div>
-              <Button variant="secondary" onClick={() => clearCart()} className="my-2">
+              <Button variant="dark" onClick={() => handleClearCart()} className="my-2">
                 Clear Cart
               </Button>
             </div>

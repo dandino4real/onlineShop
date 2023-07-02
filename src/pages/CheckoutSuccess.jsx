@@ -17,14 +17,11 @@ const CheckoutSuccess = () => {
   }, [cart, dispatch]);
 
   return (
-    <Container>
-      <h2>Checkout Successful</h2>
-      <p>Your order might take some time to process.</p>
-      <p>Check your order status at your profile after about 10mins.</p>
-      <p>
-        Incase of any inqueries contact the support at{" "}
-        <strong>support@onlineshop.com</strong>
-      </p>
+    <Container className="text-center my-5">
+      <Row><Col className="fs-2">Checkout Successful</Col></Row>
+      <Row><Col>Your order might take some time to process.</Col></Row>
+      <Row><Col>Check your order status at your profile after about 10mins.</Col></Row>
+      <Row><Col> Incase of any inqueries contact the support at{" "}<strong>support@onlineshop.com</strong></Col></Row>
     </Container>
   );
 };

@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Button, Container } from "react-bootstrap";
 import { Outlet, useNavigate } from "react-router-dom";
 
 
@@ -6,14 +8,16 @@ const Products = () => {
 
   return (
     <>
-      <div>
+      <Container className="d-flex pt-3 mb-5">
         <h2>Products</h2>
-        <button
+        <Button
+        variant="dark"
+        className="ms-auto me-5"
           onClick={() => navigate("/admin/products/create-product")}
         >
           Create
-        </button>
-      </div>
+        </Button>
+      </Container>
       <Outlet />
     </>
   );

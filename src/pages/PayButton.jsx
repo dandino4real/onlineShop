@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { url } from "../features/api";
+import { Button } from "react-bootstrap";
 
 const PayButton = ({ cartItems }) => {
   const user = useSelector((state) => state.auth);
@@ -21,7 +22,7 @@ const PayButton = ({ cartItems }) => {
 
   return (
     <>
-      <button onClick={() => handleCheckout()}>Check out</button>
+      <Button variant="success" onClick={() => handleCheckout()}>Check out</Button>
     </>
   );
 };
