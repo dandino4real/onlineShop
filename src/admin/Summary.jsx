@@ -4,12 +4,16 @@ import { Col, Container, Row } from "react-bootstrap";
 import { FaUsers, FaChartBar, FaClipboard } from "react-icons/fa";
 import Widget from "./SummaryComponent/Widget";
 import { setHeaders, url } from "../features/api";
+import Charts from "./SummaryComponent/Charts";
+import Transactions from "./SummaryComponent/Transaction";
+import AllTimeData from "./SummaryComponent/AllTimeData";
 const Summary = () => {
   const [users, setUsers] = useState([]);
   const [usersPercentage, setUsersPercentage] = useState(0);
   const [orders, setOrders] = useState([]);
   const [ordersPercentage, setOrdersPercentage] = useState(0);
-  console.log(ordersPercentage);
+  const [income, setIncome] = useState([]);
+  const [incomePercentage, setIncomePercentage] = useState(0);
 
   useEffect(() => {
     async function fetchdata() {
@@ -17,13 +21,13 @@ const Summary = () => {
         const res = await axios.get(`${url}/users/stats`, setHeaders());
 
         res.data.sort((a, b) => b._id - a._id);
-        console.log("stats", res.data);
+
         setUsers(res.data);
         const percent =
           (((res.data[0]?.total || 0) - (res.data[1]?.total || 0)) /
             (res.data[1]?.total || 1)) *
           100;
-        console.log("percent 1", percent);
+
         setUsersPercentage(percent.toFixed(0));
       } catch (err) {
         console.log(err.message);
@@ -36,15 +40,15 @@ const Summary = () => {
   useEffect(() => {
     async function fetchOrder() {
       try {
-        const res = await axios.get(`${url}/orders/income`, setHeaders());
+        const res = await axios.get(`${url}/orders/stats`, setHeaders());
         res.data.sort((a, b) => b._id - a._id);
-        console.log("order", res.data);
+
         setOrders(res.data);
         const percent =
           (((res.data[0]?.total || 0) - (res.data[1]?.total || 0)) /
             (res.data[1]?.total || 1)) *
           100;
-        console.log("percent", percent);
+
         setOrdersPercentage(percent.toFixed(0));
       } catch (err) {
         console.log(err.message);
@@ -52,6 +56,27 @@ const Summary = () => {
     }
 
     fetchOrder();
+  }, []);
+
+  useEffect(() => {
+    async function fetchIncome() {
+      try {
+        const res = await axios.get(`${url}/orders/income/stats`, setHeaders());
+        res.data.sort((a, b) => b._id - a._id);
+
+        setIncome(res.data);
+        const percent =
+          (((res.data[0]?.total || 0) - (res.data[1]?.total || 0)) /
+            (res.data[1]?.total || 1)) *
+          100;
+
+        setIncomePercentage(percent.toFixed(0));
+      } catch (err) {
+        console.log(err.message);
+      }
+    }
+
+    fetchIncome();
   }, []);
 
   const data = [
@@ -66,30 +91,30 @@ const Summary = () => {
     },
     {
       icon: <FaClipboard />,
-      digits: 70,
+      digits: orders[0]?.total,
       isMoney: false,
-      title: "Orders",
+      title: orders[0]?.total > 1 ? "Orders" : "Order",
       color: "rgb(38, 198, 249)",
       bgColor: "rgb(38, 198, 249, 0.12)",
-      percentage: -25,
+      percentage: ordersPercentage,
     },
     {
       icon: <FaChartBar />,
-      digits: 500,
+      digits: income[0]?.total ? income[0]?.total / 100 : "",
       isMoney: true,
       title: "Earnings",
       color: "rgb(253, 181, 40)",
       bgColor: "rgb(253, 181, 40, 0.12)",
-      percentage: 60,
+      percentage: incomePercentage,
     },
   ];
   return (
-    <Container>
-      <Row className="pt-3 ">
-        <Col id="main-stats" className="col-7">
+    <Container className="pb-5">
+      <Row className="pt-4 ms-2">
+        <Col id="main-stats" className="col-8 ">
           <Row className="flex-column">
-            <Col id="title" className="mb-2 bg-dark text-white rounded">
-              <h2>Overview</h2>
+            <Col id="title" className="mb-2 rounded border mb-4" style={{backgroundColor: "rgb(48, 51, 78)", color: "rgb(234, 234, 255, 0.87)"}}>
+              <h2 className="my-3">Overview</h2>
               <p>How your shop is performing compared to the previous month</p>
               <div
                 id="widget-wrapper"
@@ -100,13 +125,15 @@ const Summary = () => {
                 ))}
               </div>
             </Col>
-            <Col>stat</Col>
+            <Col>
+              <Charts />
+            </Col>
           </Row>
         </Col>
-        <Col id="side-stats" className="col-5">
-          <Row className="flex-column">
-            <Col>3</Col>
-            <Col>4</Col>
+        <Col id="side-stats" className="col-4">
+          <Row className="flex-column me-2">
+            <Col><Transactions/ ></Col>
+            <Col><AllTimeData /> </Col>
           </Row>
         </Col>
       </Row>

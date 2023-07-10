@@ -9,7 +9,7 @@ const Dashboard = () => {
   return (
     <Container fluid>
       <Row style={{ minHeight: "100vh" }}>
-        <Col sm={3} md={2} className="border-end border-3 pt-3">
+        <Col sm={3} md={2} className="border-end border-3 pt-4">
           <Nav className="flex-column">
             <h3 className="mb-3" >Quick Links</h3>
             <Nav.Link

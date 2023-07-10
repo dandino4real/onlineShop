@@ -26,7 +26,7 @@ const Widget = ({ data }) => {
           </Col>
         </Row>
       </Col>
-      {data.percentage < 0 ? (
+      {data.percentage >= 0 ? (
         <Col className="d-flex align-items-center ps-0">
           <span className="text-success"> {Math.ceil(data.percentage)}% </span>
         </Col>
