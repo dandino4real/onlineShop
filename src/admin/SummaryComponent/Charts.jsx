@@ -62,13 +62,13 @@ const Charts = () => {
   return (
     <>
     {loading ? <p>Loading Chart ...</p> : 
-    <Row style={{ height: "350px", border: "1px solid black" }} className="rounded ">
+    <Row style={{ height: "400px", border: "1px solid gray" }} className="rounded py-2">
       <h4 className="my-2">Last 7 days Earnings (US $)</h4>
       <Col>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             width={300}
-            height={200}
+            height={220}
             data={sales}
             margin={{
               top: 5,

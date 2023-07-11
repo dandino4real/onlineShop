@@ -1,6 +1,22 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Container, Row, Col, Nav } from "react-bootstrap";
+import {
+  FaUsers,
+  FaStore,
+  FaClipboard,
+  FaTachometerAlt,
+  FaUser,
+} from "react-icons/fa";
+
+const getNavLinkStyle = ({ isActive, isPending }) => {
+  return {
+    fontWeight: isActive ? "bold" : "",
+    color: isPending ? "red" : "gray",
+    borderLeft: isActive ? "1px solid gray" : "",
+  };
+};
+
 const Dashboard = () => {
   const auth = useSelector((state) => state.auth);
 
@@ -11,25 +27,55 @@ const Dashboard = () => {
       <Row style={{ minHeight: "100vh" }}>
         <Col sm={3} md={2} className="border-end border-3 pt-4">
           <Nav className="flex-column">
-            <h3 className="mb-3" >Quick Links</h3>
-            <Nav.Link
-            as={Link}
+            <h3 className="mb-3">Quick Links</h3>
+            <NavLink
+              exact
               to="/admin/summary"
-              className={({ isActive }) =>
-                isActive ? "link-active" : "link-inactive"
-              }
+              className="nav-link ps-2 py-1"
+              style={getNavLinkStyle}
             >
+              <span className="me-1 ">
+                <FaTachometerAlt />
+              </span>{" "}
               Summary
-            </Nav.Link>
-            <Nav.Link as={Link} to="/admin/products" className={({ isActive }) => (isActive ? "link-active" : "link-inactive")}>Products</Nav.Link>
-            <Nav.Link as={Link} to="/admin/orders" className={({ isActive }) => (isActive ? "link-active" : "link-inactive")} >
+            </NavLink>
+            <NavLink
+              exact
+              to="/admin/products"
+              className="nav-link ps-2 py-1"
+              style={getNavLinkStyle}
+            >
+              <span className="me-1">
+                <FaStore />
+              </span>{" "}
+              Products
+            </NavLink>
+            <NavLink
+              exact
+              to="/admin/orders"
+              className="nav-link ps-2 py-1"
+              style={getNavLinkStyle}
+            >
+              <span className="me-1">
+                <FaClipboard />
+              </span>{" "}
               Orders
-            </Nav.Link>
-            <Nav.Link  as={Link} to="/admin/users" className={({ isActive }) => (isActive ? "link-active" : "link-inactive")}>Users</Nav.Link>
+            </NavLink>
+            <NavLink
+              exact
+              to="/admin/users"
+              className="nav-link ps-2 py-1"
+              style={getNavLinkStyle}
+            >
+              <span className="me-1">
+                <FaUser />
+              </span>{" "}
+              Users
+            </NavLink>
           </Nav>
         </Col>
         <Col sm={9} md={10} className="main-content">
-          <Outlet/>
+          <Outlet />
         </Col>
       </Row>
     </Container>
@@ -37,4 +83,3 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
-

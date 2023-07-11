@@ -111,7 +111,7 @@ const Summary = () => {
   return (
     <Container className="pb-5">
       <Row className="pt-4 ms-2">
-        <Col id="main-stats" className="col-8 ">
+        <Col id="main-stats" className="col-8">
           <Row className="flex-column">
             <Col id="title" className="mb-2 rounded border mb-4" style={{backgroundColor: "rgb(48, 51, 78)", color: "rgb(234, 234, 255, 0.87)"}}>
               <h2 className="my-3">Overview</h2>

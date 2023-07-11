@@ -6,45 +6,48 @@ const AllTimeData = () => {
   const { items } = useSelector((state) => state.products);
   console.log(items);
   return (
-    <Row className="border rounded ms-1 mt-4 pb-3" style={{backgroundColor: "rgb(48, 51, 78)", color: "rgb(234, 234, 255, 0.87)"}}>
-      <Row className="py-3 ">
-        <Col>
+    
+    <div className="rounded ms-1 mt-4 p-2 px-2" style={{backgroundColor: "rgb(48, 51, 78)", color: "rgb(234, 234, 255, 0.87)"}}>
+      <Row className="my-2 mx-1 ">
+        <Col >
           <h3>All Time</h3>
         </Col>
       </Row>
-      <Row>
-        <Col >
-          <p>Users</p>
-        </Col>
+      <Row className="mb-3 mx-1 py-2 rounded" style={{backgroundColor: "rgb(102, 108, 255, 0.12)"}}>
         <Col>
-          <p>200</p>
-        </Col>
-      </Row>
-      <Row >
-        <Col>
-          <p>Products</p>
+          <p className="mb-0">Users</p>
         </Col>
         <Col >
-          <p>{items.length}</p>
+          <p className="mb-0">200</p>
         </Col>
       </Row>
-      <Row >
-        <Col>
-          <p>Orders</p>
+
+      <Row className="my-3 mx-1 py-2" style={{backgroundColor: "rgb(38, 198, 249, 0.12)"}}> 
+        <Col >
+          <p className="mb-0">Products</p>
         </Col>
-        <Col>
-          <p>200</p>
-        </Col>
-      </Row>
-      <Row >
-        <Col>
-          <p>Earnings</p>
-        </Col>
-        <Col>
-          <p>$20,000</p>
+        <Col >
+          <p className="mb-0">{items.length}</p>
         </Col>
       </Row>
-    </Row>
+
+      <Row className="my-3 mx-1 py-2" style={{backgroundColor: "rgb(102, 108, 255, 0.12)"}}>
+        <Col >
+          <p className="mb-0"> Orders</p>
+        </Col>
+        <Col >
+          <p className="mb-0">200</p>
+        </Col>
+      </Row>
+      <Row className="my-3 mx-1 py-2" style={{backgroundColor: "rgb(38, 198, 249, 0.12)"}}>
+        <Col >
+          <p className="mb-0">Earnings</p>
+        </Col>
+        <Col >
+          <p className="mb-0">$20,000</p>
+        </Col>
+      </Row>
+    </div>
   );
 };
 
