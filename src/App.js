@@ -17,6 +17,10 @@ import Summary from "./admin/Summary";
 import ProductList from "./admin/list/ProductList";
 import Orders from "./admin/Orders";
 import Users from "./admin/Users";
+import Product from "./details/Product";
+import Order from "./details/Order";
+import User from "./details/userProfile";
+
 
 function App() {
   return (
@@ -28,6 +32,9 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route path="/order/:id" element={<Order />} />
+        <Route path="/user/:id" element={<User/>} />
         <Route path="/admin" element={<Dashboard />}>
           <Route path="products" element={<Products />}>
             <Route index element={<ProductList />} />

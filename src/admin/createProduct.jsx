@@ -51,7 +51,7 @@ const CreateProduct = () => {
 
   return (
     <Row>
-      <Col style={{ height: 400 }} xs={8} md={5} >
+      <Col style={{ height: 400 }} xs={8} md={5}>
         <Form onSubmit={handleSubmit} className="ms-3">
           <h5 className="mb-3">Create a Product</h5>
           <Form.Group controlId="image" className="mb-3">
@@ -64,7 +64,11 @@ const CreateProduct = () => {
             ></Form.Control>
           </Form.Group>
 
-          <Form.Select aria-label="Default select example" className="mb-3">
+          <Form.Select
+            aria-label="Default select example"
+            className="mb-3"
+            onChange={(e) => setBrand(e.target.value)}
+          >
             <option value="">Select Brand</option>
             <option value="iphone">iPhone</option>
             <option value="samsung">Samsung</option>
@@ -99,7 +103,7 @@ const CreateProduct = () => {
             ></Form.Control>
           </Form.Group>
 
-          <Button className="w-100" variant="dark">
+          <Button className="w-100" variant="dark" type="submit">
             {createStatus === "pending" ? "submitting" : "submit"}
           </Button>
         </Form>

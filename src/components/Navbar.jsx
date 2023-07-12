@@ -17,14 +17,8 @@ function NavbarComponent() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if (auth._id ) {
-  //     navigate("/cart");
-  //   }
-  // }, [auth._id, navigate]);
-
   return (
-    <Navbar bg="dark" expand="lg">
+    <Navbar expand="lg" style={{backgroundColor : "#3A3632"}}>
       <Container className="d-flex my-2">
         <Navbar.Brand as={Link} to="/" className="text-white ms-4">
           OnlineShop

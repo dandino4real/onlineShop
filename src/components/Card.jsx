@@ -26,7 +26,7 @@ function ProductsCard({product}) {
       <div style={{ width: "80%", margin: "0 auto" }}>
         <Card.Img
           variant="top"
-          src={product.image}
+          src={product.image.url}
           style={{ height: 250, width: "100%", objectFit: "cover" }}
         />
       </div>

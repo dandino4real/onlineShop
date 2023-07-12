@@ -1,53 +1,85 @@
-import * as React from 'react';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
-
-const columns= [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  },
-];
-
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
+import * as React from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import { useSelector } from "react-redux";
+import { Button, Stack, Divider } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductList() {
+  const { items } = useSelector((state) => state.products);
+  const navigate = useNavigate();
+
+  const rows =
+    items &&
+    items.map((item) => {
+      return {
+        id: item._id,
+        imageUrl: item.image.url,
+        pName: item.name,
+        pDesc: item.desc,
+        price: item.price.toLocaleString(),
+      };
+    });
+
+  const columns = [
+    { field: "id", headerName: "ID", width: 220 },
+    {
+      field: "imageUrl",
+      headerName: "Image",
+      width: 100,
+      renderCell: (params) => {
+        return (
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <img
+              src={params.row.imageUrl}
+              alt=""
+              style={{ maxWidth: "100%", maxHeight: "100%" }}
+            />
+          </div>
+        );
+      },
+    },
+    { field: "pName", headerName: "Name", width: 130 },
+    { field: "pDesc", headerName: "Description", width: 130 },
+    { field: "price", headerName: "Price", width: 120 },
+    {
+      field: "actions",
+      headerName: "Actions",
+      sortable: false,
+      width: 200,
+      renderCell: (params) => {
+        return (
+          <Stack
+            direction="row"
+            divider={<Divider orientation="vertical" flexItem />}
+            spacing={1}
+          >
+            <Button variant="contained" color="error" size="small">
+              Delete
+            </Button>
+            <Button
+              variant="contained"
+              color="success"
+              size="small"
+              onClick={() => navigate(`/product/${params.row.id}`)}
+            >
+              View
+            </Button>
+          </Stack>
+        );
+      },
+    },
+  ];
+
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        initialState={{
-          pagination: {
-            paginationModel: { page: 0, pageSize: 5 },
-          },
-        }}
-        pageSizeOptions={[5, 10]}
-        checkboxSelection
-      />
+    <div style={{ height: 400, width: "100%" }} className="me-2">
+      <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
     </div>
   );
 }

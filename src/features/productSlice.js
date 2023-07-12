@@ -26,6 +26,8 @@ export const productsFetch = createAsyncThunk(
 export const productsCreate = createAsyncThunk(
   "products/productsCreate",
   async (values) => {
+    console.log('object: ', values)
+
     try {
       const response = await axios.post(
         `${url}/products`,
