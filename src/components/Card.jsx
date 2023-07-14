@@ -4,6 +4,7 @@ import Card from "react-bootstrap/Card";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cartSlice";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 function ProductsCard({product}) {
  const  navigate = useNavigate()
@@ -23,13 +24,16 @@ function ProductsCard({product}) {
       }}
     >
       <Card.Title className="py-2 px-3">{product.name}</Card.Title>
+      <Link to ={`/product/${product._id}`} > 
+      
       <div style={{ width: "80%", margin: "0 auto" }}>
         <Card.Img
           variant="top"
           src={product.image.url}
-          style={{ height: 250, width: "100%", objectFit: "cover" }}
+          style={{ height: 'auto', width: "100%", objectFit: "cover" }}
         />
       </div>
+      </Link>
       <Card.Body>
         <div
           style={{

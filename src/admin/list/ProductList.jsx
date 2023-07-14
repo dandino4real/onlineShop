@@ -1,12 +1,17 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, Stack, Divider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { productsDelete } from "../../features/productSlice";
+import EditProduct from "../EditProduct";
 
 export default function ProductList() {
-  const { items } = useSelector((state) => state.products);
   const navigate = useNavigate();
+  const dispatch = useDispatch()
+
+  const { items } = useSelector((state) => state.products);
+
 
   const rows =
     items &&
@@ -52,7 +57,7 @@ export default function ProductList() {
       field: "actions",
       headerName: "Actions",
       sortable: false,
-      width: 200,
+      width: 250,
       renderCell: (params) => {
         return (
           <Stack
@@ -60,9 +65,10 @@ export default function ProductList() {
             divider={<Divider orientation="vertical" flexItem />}
             spacing={1}
           >
-            <Button variant="contained" color="error" size="small">
+            <Button variant="contained" color="error" size="small" onClick={()=>handleDelete(params.row.id)}>
               Delete
             </Button>
+           <EditProduct prodId={params.row.id} />
             <Button
               variant="contained"
               color="success"
@@ -77,9 +83,13 @@ export default function ProductList() {
     },
   ];
 
+  const handleDelete = (id)=>{
+    dispatch(productsDelete(id))
+  }
+
   return (
     <div style={{ height: 400, width: "100%" }} className="me-2">
-      <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection />
+      <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection  disableRowSelectionOnClick/>
     </div>
   );
 }

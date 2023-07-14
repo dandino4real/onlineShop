@@ -23,9 +23,9 @@ const Dashboard = () => {
   if (!auth.isAdmin) return <Container>Access denied. Not an Admin!</Container>;
 
   return (
-    <Container fluid>
+    <Container fluid  >
       <Row style={{ minHeight: "100vh" }}>
-        <Col sm={3} md={2} className="border-end border-3 pt-4">
+        <Col sm={3} md={2} className=" pt-4"style={{backgroundColor: "#f2f2f2"}} >
           <Nav className="flex-column">
             <h3 className="mb-3">Quick Links</h3>
             <NavLink

@@ -7,6 +7,8 @@ import { setHeaders, url } from "../features/api";
 import Charts from "./SummaryComponent/Charts";
 import Transactions from "./SummaryComponent/Transaction";
 import AllTimeData from "./SummaryComponent/AllTimeData";
+
+
 const Summary = () => {
   const [users, setUsers] = useState([]);
   const [usersPercentage, setUsersPercentage] = useState(0);

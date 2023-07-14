@@ -1,9 +1,10 @@
 import React from 'react'
+import OrdersList from './list/OrdersList'
 
 const Orders = () => {
   return (
     <div>
-      orders
+     <OrdersList/>
     </div>
   )
 }
