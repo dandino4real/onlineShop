@@ -6,7 +6,7 @@ import {
   FaStore,
   FaClipboard,
   FaTachometerAlt,
-  FaUser,
+  
 } from "react-icons/fa";
 
 const getNavLinkStyle = ({ isActive, isPending }) => {
@@ -68,7 +68,7 @@ const Dashboard = () => {
               style={getNavLinkStyle}
             >
               <span className="me-1">
-                <FaUser />
+                <FaUsers />
               </span>{" "}
               Users
             </NavLink>

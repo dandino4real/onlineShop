@@ -37,7 +37,7 @@ const Charts = () => {
 
         setSales(newData);
         setLoading(false)
-        console.log(sales)
+        
  
       } catch (err) {
         console.log(err.message);

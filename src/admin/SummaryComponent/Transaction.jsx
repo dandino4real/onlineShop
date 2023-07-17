@@ -7,7 +7,7 @@ import { Table, Row, Col } from "react-bootstrap";
 const Transactions = () => {
   const [orders, setOrders] = useState([]);
   const [isLoading, setisLoading] = useState(false);
-  console.log("orders: ", orders);
+ 
   useEffect(() => {
     async function fetchData() {
       setisLoading(true);

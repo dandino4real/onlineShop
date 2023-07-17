@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 const AllTimeData = () => {
   const { items } = useSelector((state) => state.products);
-  console.log(items);
+  
   return (
     
     <div className="rounded ms-1 mt-4 p-2 px-2" style={{backgroundColor: "rgb(48, 51, 78)", color: "rgb(234, 234, 255, 0.87)"}}>
