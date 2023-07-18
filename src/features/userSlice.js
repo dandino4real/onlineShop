@@ -47,17 +47,18 @@ const usersSlice = createSlice({
       state.status = "rejected";
     },
     [userDelete.pending]: (state, action) => {
-      state.status = "pending";
+      state.deleteStatus = "pending";
     },
     [userDelete.fulfilled]: (state, action) => {
-      const updatedusers = state.list.map((user) =>
-        user._id === action.payload._id ? action.payload : user
+      const newList = state.list.filter((user) =>
+        user._id !== action.payload._id 
       );
-      state.list = updatedusers;
-      state.status = "success";
+      state.list = newList;
+      state.deleteStatus = "success";
+      toast.error("User Deleted!", {position: "bottom-left"})
     },
     [userDelete.rejected]: (state, action) => {
-      state.status = "rejected";
+      state.deleteStatus = "rejected";
     },
   },
 });

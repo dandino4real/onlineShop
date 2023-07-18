@@ -5,14 +5,13 @@ import { Button, Stack, Divider } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 import { useEffect } from "react";
-import { usersFetch } from "../../features/userSlice";
+import { userDelete, usersFetch } from "../../features/userSlice";
 
 export default function UsersList() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { list } = useSelector((state) => state.users);
-  console.log(list)
+  const { list } = useSelector((state) => state.users)
 
   useEffect(() => {
     dispatch(usersFetch());
@@ -84,7 +83,7 @@ export default function UsersList() {
   ];
 
   const handleDelete = (id) => {
-    // dispatch(productsDelete(id));
+    dispatch(userDelete (id));
   };
 
   return (
