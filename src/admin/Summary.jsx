@@ -115,7 +115,7 @@ const Summary = () => {
       <Row className="pt-4 ms-2">
         <Col id="main-stats" className="col-8">
           <Row className="flex-column">
-            <Col id="title" className="mb-2 rounded border mb-4" style={{backgroundColor: "rgb(48, 51, 78)", color: "rgb(234, 234, 255, 0.87)"}}>
+            <Col id="title" className="mb-2 rounded border mb-4" style={{backgroundColor: "#ffc864", color: "black"}}>
               <h2 className="my-3">Overview</h2>
               <p>How your shop is performing compared to the previous month</p>
               <div

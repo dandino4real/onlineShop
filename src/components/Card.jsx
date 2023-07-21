@@ -16,23 +16,22 @@ function ProductsCard({product}) {
   };
   return (
     <Card
-      className="product-card"
+      className="product-card p-2 mx-2"
       style={{
-        width: "16rem",
-        height: "400px",
-        boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.1)",
+        width: "14rem",
+
+        // boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.1)",
       }}
     >
-      <Card.Title className="py-2 px-3">{product.name}</Card.Title>
+      {/* <Card.Title className="py-2 px-3">{product.name}</Card.Title> */}
       <Link to ={`/product/${product._id}`} > 
-      
-      <div style={{ width: "80%", margin: "0 auto" }}>
         <Card.Img
           variant="top"
           src={product.image.url}
-          style={{ height: 'auto', width: "100%", objectFit: "cover" }}
+          style={{ height: "16rem", width: "100%", objectFit: "cover" }}
+          // className="border"
         />
-      </div>
+
       </Link>
       <Card.Body>
         <div
@@ -41,14 +40,16 @@ function ProductsCard({product}) {
             justifyContent: "space-between",
             alignItems: "center",
           }}
+          
         >
-          <Card.Text>{product.desc}</Card.Text>
+          {/* <Card.Text>{product.desc}</Card.Text> */}
+          <Card.Text>{product.name}</Card.Text>
           <Card.Subtitle className="mb-2 text-muted font-weight-bold">
             ${product.price}
           </Card.Subtitle>
         </div>
         <Button
-          variant="primary"
+          variant="outline-primary"
           className="w-100"
           onClick={() => handleAddCart(product)}
         >
