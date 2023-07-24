@@ -20,7 +20,7 @@ import Users from "./admin/Users";
 import Product from "./details/Product";
 import Order from "./details/Order";
 import User from "./details/userProfile";
-import SubNavbar from "./components/SubNavbar";
+
 
 
 function App() {
@@ -28,7 +28,6 @@ function App() {
     <BrowserRouter>
       <ToastContainer />
       <Navbar />
-      <SubNavbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { useDispatch } from "react-redux";
@@ -6,45 +6,57 @@ import { addToCart } from "../features/cartSlice";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
-function ProductsCard({product}) {
- const  navigate = useNavigate()
- 
+const cardStyle = {
+  width: "14rem",
+  transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
+  border: "none", // Remove border
+  boxShadow: "none", // Remove box shadow initially
+};
+
+const imageStyle = {
+  height: "16rem",
+  objectFit: "cover",
+  width: "100%",
+};
+
+function ProductsCard({ product }) {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const handleAddCart = (product) => {
     dispatch(addToCart(product));
-    navigate('/cart')
+    navigate("/cart");
   };
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
     <Card
-      className="product-card p-2 mx-2"
+      className="product-card p-2 m-2"
       style={{
-        width: "14rem",
-
-        // boxShadow: " 0 4px 6px rgba(0, 0, 0, 0.1)",
+        ...cardStyle,
+        transform: isHovered ? "scale(1.02)" : "scale(1)",
+        boxShadow: isHovered ? "0 2px 8px rgba(0, 0, 0, 0.2)" : "none", 
+ 
       }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      {/* <Card.Title className="py-2 px-3">{product.name}</Card.Title> */}
-      <Link to ={`/product/${product._id}`} > 
-        <Card.Img
-          variant="top"
-          src={product.image.url}
-          style={{ height: "16rem", width: "100%", objectFit: "cover" }}
-          // className="border"
-        />
-
+      <Link to={`/product/${product._id}`}>
+        <Card.Img variant="top" src={product.image.url} style={imageStyle} className="p-2" />
       </Link>
-      <Card.Body>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-          
-        >
-          {/* <Card.Text>{product.desc}</Card.Text> */}
-          <Card.Text>{product.name}</Card.Text>
-          <Card.Subtitle className="mb-2 text-muted font-weight-bold">
+      <Card.Body className="px-3 pt-0 ">
+        <div>
+          <Card.Text className="py-1 m-0">{product.name}</Card.Text>
+          <Card.Subtitle className="mb-1 ">
             ${product.price}
           </Card.Subtitle>
         </div>
