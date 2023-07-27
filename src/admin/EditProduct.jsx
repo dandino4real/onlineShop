@@ -1,45 +1,42 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
-
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-
 import DialogTitle from "@mui/material/DialogTitle";
-
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { Form, Row, Col, Image } from "react-bootstrap";
-
-import {  productsEdit } from "../features/productSlice";
+import { Form, Row, Col, Image, Button } from "react-bootstrap";
+import { productsEdit } from "../features/productSlice";
+import InputGroup from "react-bootstrap/InputGroup";
 
 export default function EditProduct({ prodId }) {
   const { items } = useSelector((state) => state.products);
-  const [open, setOpen] = React.useState(false);
 
+  const [open, setOpen] = useState(false);
   const [productImg, setProductImg] = useState("");
+  const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [desc, setDesc] = useState("");
 
-  const [currentProd, setCurrentProd] = useState({})
-  const [previewImg, setPreviewImg] = useState('')
+  const [currentProd, setCurrentProd] = useState({});
+  const [previewImg, setPreviewImg] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
     let selectedProd = items.filter((item) => item._id === prodId);
     selectedProd = selectedProd[0];
 
-    setCurrentProd(selectedProd)
-    setPreviewImg(selectedProd.image.url)
+    setCurrentProd(selectedProd);
+    setPreviewImg(selectedProd.image.url);
 
-    setProductImg('')
-    setBrand(selectedProd.brand)
-    setName(selectedProd.name)
-    setPrice(selectedProd.price)
-    setDesc(selectedProd.desc)
+    setProductImg("");
+    setCategory(selectedProd.category);
+    setBrand(selectedProd.brand);
+    setName(selectedProd.name);
+    setPrice(selectedProd.price);
+    setDesc(selectedProd.desc);
   };
 
   const handleClose = () => {
@@ -48,8 +45,6 @@ export default function EditProduct({ prodId }) {
 
   const dispatch = useDispatch();
   const { createStatus } = useSelector((state) => state.products);
-
- 
 
   const handleProductImageUpload = (e) => {
     const file = e.target.files[0];
@@ -64,7 +59,7 @@ export default function EditProduct({ prodId }) {
       reader.readAsDataURL(file);
       reader.onloadend = () => {
         setProductImg(reader.result);
-        setPreviewImg(reader.result)
+        setPreviewImg(reader.result);
       };
     } else {
       setProductImg("");
@@ -79,10 +74,12 @@ export default function EditProduct({ prodId }) {
         productImg,
         product: {
           ...currentProd,
-          name:name,
-          price:price,
-          desc:desc
-        }
+          name: name,
+          price: price,
+          desc: desc,
+          brand: brand,
+          category: category,
+        },
       })
     );
   };
@@ -98,7 +95,10 @@ export default function EditProduct({ prodId }) {
         fullWidth={true}
         maxWidth={"md"}
       >
-        <DialogTitle>Edit Product</DialogTitle>
+        <DialogTitle className="m-3">
+          {" "}
+          <h3>Edit Product </h3>{" "}
+        </DialogTitle>
         <DialogContent>
           <Row>
             <Col style={{ height: 400 }} xs={8} md={5}>
@@ -113,47 +113,66 @@ export default function EditProduct({ prodId }) {
                   ></Form.Control>
                 </Form.Group>
 
-                <Form.Select
-                  aria-label="Default select example"
-                  className="mb-3"
-                  onChange={(e) => setBrand(e.target.value)}
-                  value={brand}
-                >
-                  <option value="">Select Brand</option>
-                  <option value="iphone">iPhone</option>
-                  <option value="samsung">Samsung</option>
-                  <option value="xiomi">Xiomi</option>
-                  <option value="other">Other</option>
-                </Form.Select>
+                <InputGroup className="mb-2">
+                  <InputGroup.Text>Category</InputGroup.Text>
+                  <Form.Select
+                    aria-label="Default select example"
+                    onChange={(e) => setCategory(e.target.value)}
+                    value={category}
+                  >
+                    <option value="">Select Category</option>
+                    <option value="Computer and Accessories">
+                      Computer and Accessories
+                    </option>
+                    <option value="Phones and Tablets">
+                      Phones and Tablets
+                    </option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Home and Kitchen">Home and Kitchen</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="other">Other</option>
+                  </Form.Select>
+                </InputGroup>
 
-                <Form.Group controlId="name" className="mb-3">
+                <InputGroup className="mb-2">
+                  <InputGroup.Text>Brand</InputGroup.Text>
                   <Form.Control
+                    id="inlineFormInputGroup"
                     type="text"
-                    placeholder="Name"
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
-
+                    value={brand}
+                    onChange={(e) => setBrand(e.target.value)}
                     required
-                  ></Form.Control>
-                </Form.Group>
+                  />
+                </InputGroup>
 
-                <Form.Group controlId="price" className="mb-3">
+                <InputGroup className="mb-2">
+                  <InputGroup.Text>Name</InputGroup.Text>
                   <Form.Control
-                    type="number"
-                    placeholder="Price"
-                    onChange={(e) => setPrice(e.target.value)}
-                    value={price}
+                    id="inlineFormInputGroup"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     required
-                  ></Form.Control>
-                </Form.Group>
+                  />
+                </InputGroup>
+
+                <InputGroup className="mb-2">
+                  <InputGroup.Text>Price</InputGroup.Text>
+                  <Form.Control
+                    id="inlineFormInputGroup"
+                    type="text"
+                    value={price}
+                    onChange={(e) => setPrice(e.target.value)}
+                    required
+                  />
+                </InputGroup>
 
                 <Form.Group controlId="description" className="mb-3">
                   <Form.Control
                     type="text"
                     placeholder="Short Description"
                     onChange={(e) => setDesc(e.target.value)}
-                  value={desc}
-
+                    value={desc}
                     required
                   ></Form.Control>
                 </Form.Group>
@@ -171,11 +190,11 @@ export default function EditProduct({ prodId }) {
               md={7}
             >
               {previewImg ? (
-                <div className=" px-2">
+                <div className=" border p-2" style={{ height: "20rem" }}>
                   <Image
                     src={previewImg}
                     alt="product-image"
-                    style={{ height: 450, width: "100%", objectFit: "cover" }}
+                    style={{ height: 300, width: "100%", objectFit: "cover" }}
                   />
                 </div>
               ) : (
@@ -189,9 +208,10 @@ export default function EditProduct({ prodId }) {
             </Col>
           </Row>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
+        <DialogActions className="m-3">
+          <Button variant="danger" onClick={handleClose}>
+            Cancel
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

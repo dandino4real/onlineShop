@@ -88,7 +88,7 @@ export default function ProductList() {
   }
 
   return (
-    <div style={{ height: 400, width: "100%" }} className="me-2">
+    <div style={{ height: 400, width: "100%" }} className="p-2">
       <DataGrid rows={rows} columns={columns} pageSize={5} checkboxSelection  disableRowSelectionOnClick/>
     </div>
   );

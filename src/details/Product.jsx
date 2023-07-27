@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { setHeaders, url } from "../features/api";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../features/cartSlice";
+import { Button, Col, Container, Row } from "react-bootstrap";
 
 const Product = () => {
   const params = useParams();
@@ -41,33 +42,39 @@ const Product = () => {
   };
 
   return (
-    <div>
+    <section style={{ backgroundColor: "#f1f1f2", minHeight: "100vh"}} className="py-5" >
       <div>
         {loading ? (
           <p>loading ...</p>
         ) : (
-          <div>
-            <div>
-              <img src={product.image?.url} alt="product" />
-            </div>
-            <div>
-              <h3>{product.name}</h3>
-              <p>
-                <span>Brand:</span> {product.brand}
-              </p>
-              <p>
-                <span>Description:</span> {product.desc}
-              </p>
-              <p>${product.price?.toLocaleString()}</p>
-              <button onClick={() => handleAddToCart(product)}>
-                {" "}
-                Add To Cart
-              </button>
-            </div>
-          </div>
+          <Container className="p-3 " style={{ backgroundColor: "#fff"}}>
+            <Row>
+              <Col md={4} >
+                <div style={{width: "20rem"}}>
+                  <img src={product.image?.url} alt="product" style={{height: "22rem", width:"100%"}}/>
+                </div>
+              </Col>
+              <Col md={8}>
+                <div  style={{width: "30rem"}} className="py-5">
+                  <h2>{product.name}</h2>
+                  <h5 >
+                    <span>Brand:</span> {product.brand}
+                  </h5>
+                  <p  className="my-2">
+                    <span>Description:</span> {product.desc}
+                  </p>
+                  <h4 >${product.price?.toLocaleString()}</h4>
+                  <Button onClick={() => handleAddToCart(product)} className="w-50">
+                    {" "}
+                    Add To Cart
+                  </Button>
+                </div>
+              </Col>
+            </Row>
+          </Container>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 
