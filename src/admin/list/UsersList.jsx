@@ -87,7 +87,12 @@ export default function UsersList() {
   };
 
   return (
-    <div style={{ height: 400, width: "100%" }} className="me-2">
+    <>
+    <div className="pt-3 mb-3">
+      <h2>Users</h2>
+    </div>
+    
+    <div style={{ height: 400, width: "100%" }} className="p-2">
       <DataGrid
         rows={rows}
         columns={columns}
@@ -96,5 +101,6 @@ export default function UsersList() {
         disableRowSelectionOnClick
       />
     </div>
+    </>
   );
 }

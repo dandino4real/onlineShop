@@ -50,12 +50,12 @@ const Product = () => {
           <Container className="p-3 " style={{ backgroundColor: "#fff"}}>
             <Row>
               <Col md={4} >
-                <div style={{width: "20rem"}}>
-                  <img src={product.image?.url} alt="product" style={{height: "22rem", width:"100%"}}/>
+                <div  className="text-center">
+                  <img src={product.image?.url} alt="product" style={{height: "22rem", width:"20rem"}}/>
                 </div>
               </Col>
-              <Col md={8}>
-                <div  style={{width: "30rem"}} className="py-5">
+              <Col md={8} className="px-5 ">
+                <div  style={{width: "30rem"}} className="py-5 text-center">
                   <h2>{product.name}</h2>
                   <h5 >
                     <span>Brand:</span> {product.brand}
@@ -64,7 +64,7 @@ const Product = () => {
                     <span>Description:</span> {product.desc}
                   </p>
                   <h4 >${product.price?.toLocaleString()}</h4>
-                  <Button onClick={() => handleAddToCart(product)} className="w-50">
+                  <Button variant="success" onClick={() => handleAddToCart(product)} className="w-50">
                     {" "}
                     Add To Cart
                   </Button>

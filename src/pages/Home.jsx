@@ -12,7 +12,7 @@ const Home = () => {
   return (
     <section
       id="home"
-      style={{ backgroundColor: "#f1f1f2", overflowX: "hidden"}}
+      style={{ backgroundColor: "#f1f1f2", overflowX: "hidden", minHeight: "100vh"}}
       className=" py-4 px-4"
     >
       <div>

@@ -34,9 +34,9 @@ export default function OrdersList() {
     {
       field: "cName",
       headerName: "Name",
-      width: 170,
+      width: 150,
     },
-    { field: "amount", headerName: "Amount($)", width: 130 },
+    { field: "amount", headerName: "Amount($)", width: 100 },
     {
       field: "dStatus",
       headerName: "Status",
@@ -66,7 +66,7 @@ export default function OrdersList() {
       field: "actions",
       headerName: "Actions",
       sortable: false,
-      width: 300,
+      width: 320,
       renderCell: (params) => {
         return (
           <Stack
@@ -109,7 +109,14 @@ export default function OrdersList() {
   }
 
   return (
-    <div style={{ height: 400, width: "100%" }} className="me-2 mt-4">
+
+    <>
+    <div className="pt-3 mb-3">
+      <h2 >
+        Orders
+      </h2>
+    </div>
+    <div style={{ height: 400, width: "100%" }} className="p-2 ">
       <DataGrid
         rows={rows}
         columns={columns}
@@ -118,5 +125,6 @@ export default function OrdersList() {
         disableRowSelectionOnClick
       />
     </div>
+    </>
   );
 }
