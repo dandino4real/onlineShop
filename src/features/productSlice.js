@@ -116,7 +116,7 @@ const productsSlice = createSlice({
      )
       state.items = updatedProducts;
       state.editStatus = "success";
-      toast.info("Product Editd!");
+      toast.info("Product Edited!");
     },
     [productsEdit.rejected]: (state, action) => {
       state.editStatus = "rejected";

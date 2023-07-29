@@ -14,7 +14,7 @@ const Order = () => {
       try {
         setLoading(true);
         const res = await axios.get(
-          `${url}/orders/findOne/${params.id}`,
+          `${url}/orders/${params.id}`,
           setHeaders()
         );
 

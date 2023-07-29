@@ -61,7 +61,7 @@ function ProductsCard({ product }) {
           </Card.Subtitle>
         </div>
         <Button
-          variant="outline-primary"
+          variant="outline-success"
           className="w-100"
           onClick={() => handleAddCart(product)}
         >

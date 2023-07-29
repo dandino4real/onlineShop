@@ -19,16 +19,14 @@ const initialState = {
 export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (values, { rejectWithValue }) => {
-
     try {
-    
-      const token = await axios.post(`${url}/register`, {
+      const token = await axios.post(`${url}/users/register`, {
         name: values.name,
         email: values.email,
         password: values.password,
-        confirmpassword: values.confirmpassword
+        confirmpassword: values.confirmpassword,
       });
-      
+
       localStorage.setItem("token", token.data);
       return token.data;
     } catch (error) {
@@ -42,7 +40,7 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (values, { rejectWithValue }) => {
     try {
-      const token = await axios.post(`${url}/login`, {
+      const token = await axios.post(`${url}/users/login`, {
         email: values.email,
         password: values.password,
       });
@@ -60,7 +58,7 @@ export const getUser = createAsyncThunk(
   "auth/getUser",
   async (id, { rejectWithValue }) => {
     try {
-      const token = await axios.get(`${url}/user/${id}`, setHeaders());
+      const token = await axios.get(`${url}/users/${id}`, setHeaders());
 
       localStorage.setItem("token", token.data);
 
@@ -105,7 +103,7 @@ const authSlice = createSlice({
         registerError: "",
         loginStatus: "",
         loginError: "",
-        userLoaded:false
+        userLoaded: false,
       };
     },
   },

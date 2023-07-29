@@ -21,7 +21,7 @@ const Product = () => {
     async function fetchdata() {
       try {
         const res = await axios.get(
-          `${url}/products/find/${params.id}`,
+          `${url}/products/${params.id}`,
           setHeaders()
         );
 
