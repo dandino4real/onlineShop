@@ -13,18 +13,19 @@ export default function EditProduct({ prodId }) {
   const { items } = useSelector((state) => state.products);
 
   const [open, setOpen] = useState(false);
+  const [previewImg, setPreviewImg] = useState("");
+
   const [productImg, setProductImg] = useState("");
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [desc, setDesc] = useState("");
-
   const [currentProd, setCurrentProd] = useState({});
-  const [previewImg, setPreviewImg] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
+    
     let selectedProd = items.filter((item) => item._id === prodId);
     selectedProd = selectedProd[0];
 
@@ -48,13 +49,11 @@ export default function EditProduct({ prodId }) {
 
   const handleProductImageUpload = (e) => {
     const file = e.target.files[0];
-
     TransformFileData(file);
   };
 
   const TransformFileData = (file) => {
     const reader = new FileReader();
-
     if (file) {
       reader.readAsDataURL(file);
       reader.onloadend = () => {

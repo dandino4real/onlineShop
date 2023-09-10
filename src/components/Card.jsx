@@ -9,8 +9,8 @@ import { Link } from "react-router-dom";
 const cardStyle = {
   width: "14rem",
   transition: "transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out",
-  border: "none", // Remove border
-  boxShadow: "none", // Remove box shadow initially
+  border: "none", 
+  boxShadow: "none", 
 };
 
 const imageStyle = {
@@ -19,7 +19,7 @@ const imageStyle = {
   width: "100%",
 };
 
-function ProductsCard({ product }) {
+function ProductCard({ product }) {
   const [isHovered, setIsHovered] = useState(false);
 
   const navigate = useNavigate();
@@ -72,4 +72,4 @@ function ProductsCard({ product }) {
   );
 }
 
-export default ProductsCard;
+export default ProductCard;

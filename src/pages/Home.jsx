@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import Hero from "../components/Hero";
 import Main from "../components/Main";
 import TopSelling from "../components/TopSelling";
+import ProductsArray from "../components/ProductsArray";
 
 const Home = () => {
   const { items: data, status } = useSelector((state) => state.products);
@@ -12,7 +13,11 @@ const Home = () => {
   return (
     <section
       id="home"
-      style={{ backgroundColor: "#f1f1f2", overflowX: "hidden", minHeight: "100vh"}}
+      style={{
+        backgroundColor: "#f1f1f2",
+        overflowX: "hidden",
+        minHeight: "100vh",
+      }}
       className=" py-4 px-4"
     >
       <div>
@@ -20,7 +25,8 @@ const Home = () => {
       </div>
       <Main />
 
-      <div className="container-fluid px-0 "  >
+      <ProductsArray />
+      {/* <div className="container-fluid px-0 "  >
         {status === "success" ? (
           <>
             <h2 className="  mb-0 text-center  " style={{backgroundColor: "#fee2cc"}}>New Arrivals</h2>
@@ -31,10 +37,9 @@ const Home = () => {
             </div>
           </>
         ) : null}
-      </div>
+      </div> */}
       <div id="top-selling">
         <TopSelling />
-
       </div>
     </section>
   );

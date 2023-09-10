@@ -65,10 +65,15 @@ export default function ProductList() {
             divider={<Divider orientation="vertical" flexItem />}
             spacing={1}
           >
-            <Button variant="contained" color="error" size="small" onClick={()=>handleDelete(params.row.id)}>
+            <Button variant="contained" 
+            color="error" 
+            size="small" 
+            onClick={()=>handleDelete(params.row.id)}>
               Delete
             </Button>
+
            <EditProduct prodId={params.row.id} />
+           
             <Button
               variant="contained"
               color="success"

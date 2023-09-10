@@ -26,7 +26,6 @@ export const registerUser = createAsyncThunk(
         password: values.password,
         confirmpassword: values.confirmpassword,
       });
-
       localStorage.setItem("token", token.data);
       return token.data;
     } catch (error) {
@@ -35,6 +34,8 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
+
+
 
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
@@ -111,6 +112,7 @@ const authSlice = createSlice({
     builder.addCase(registerUser.pending, (state, action) => {
       return { ...state, registerStatus: "pending" };
     });
+
     builder.addCase(registerUser.fulfilled, (state, action) => {
       if (action.payload) {
         const user = jwtDecode(action.payload);
@@ -125,6 +127,7 @@ const authSlice = createSlice({
         };
       } else return state;
     });
+
     builder.addCase(registerUser.rejected, (state, action) => {
       return {
         ...state,
@@ -132,9 +135,11 @@ const authSlice = createSlice({
         registerError: action.payload,
       };
     });
+
     builder.addCase(loginUser.pending, (state, action) => {
       return { ...state, loginStatus: "pending" };
     });
+    
     builder.addCase(loginUser.fulfilled, (state, action) => {
       if (action.payload) {
         const user = jwtDecode(action.payload);

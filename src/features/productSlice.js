@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 const initialState = {
   items: [],
+  pageStatus: {}, // added
   status: null,
   createStatus: null,
   deleteStatus: null,
@@ -13,13 +14,18 @@ const initialState = {
 
 export const productsFetch = createAsyncThunk(
   "products/productsFetch",
-  async () => {
+  // async (page) => {
+    async (page = 1) => {
+    
     try {
-      const response = await axios.get(`${url}/products`);
+      const response = await axios.get(`${url}/products/?page=${page}&limit=10`);
+      // return response.data.data.products;
+      return response.data.data; //added. this will return an object
 
-      return response.data;
     } catch (error) {
       console.log(error);
+      // toast.error(error.message);
+      toast.error(error.response?.data);
     }
   }
 );
@@ -27,8 +33,7 @@ export const productsFetch = createAsyncThunk(
 export const productsCreate = createAsyncThunk(
   "products/productsCreate",
   async (values) => {
-    console.log("object: ", values);
-
+   
     try {
       const response = await axios.post(
         `${url}/products`,
@@ -89,7 +94,9 @@ const productsSlice = createSlice({
       state.status = "pending";
     },
     [productsFetch.fulfilled]: (state, action) => {
-      state.items = action.payload;
+      // state.items = action.payload;   
+      state.items = action.payoad.products; //added
+      state.pageStatus = action.payload.pagination; //added
       state.status = "success";
     },
     [productsFetch.rejected]: (state, action) => {
@@ -101,10 +108,25 @@ const productsSlice = createSlice({
     [productsCreate.fulfilled]: (state, action) => {
       state.items.push(action.payload);
       state.createStatus = "success";
-      toast.success("Product Created!");
+      toast.success("Product Created!", { position: toast.POSITION.BOTTOM_LEFT});
     },
     [productsCreate.rejected]: (state, action) => {
       state.createStatus = "rejected";
+    },
+
+    [productsDelete.pending]: (state, action) => {
+      state.deleteStatus = "pending";
+    },
+    [productsDelete.fulfilled]: (state, action) => {
+      const newProducts = state.items.filter((product) =>
+        product._id !== action.payload._id 
+      );
+      state.items = newProducts;
+      state.deleteStatus = "success";
+      toast.error("products Deleted!", { position: toast.POSITION.BOTTOM_LEFT})
+    },
+    [productsDelete.rejected]: (state, action) => {
+      state.deleteStatus = "rejected";
     },
 
     [productsEdit.pending]: (state, action) => {
@@ -116,7 +138,7 @@ const productsSlice = createSlice({
      )
       state.items = updatedProducts;
       state.editStatus = "success";
-      toast.info("Product Edited!");
+      toast.info("Product Edited!", { position: toast.POSITION.BOTTOM_LEFT});
     },
     [productsEdit.rejected]: (state, action) => {
       state.editStatus = "rejected";

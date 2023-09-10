@@ -43,10 +43,10 @@ const cartSlice = createSlice({
           position: toast.POSITION.BOTTOM_LEFT,
         });
       } else if (state.cartItems[itemIndex].cartQuantity === 1) {
-        const nextCartItems = state.cartItems.filter(
+        const otherCartItems = state.cartItems.filter(
           (cartItem) => cartItem._id !== action.payload._id
         );
-        state.cartItems = nextCartItems;
+        state.cartItems = otherCartItems;
         toast.error(`${action.payload.name} has been removed from your cart`, {
           position: toast.POSITION.BOTTOM_LEFT,
         });
@@ -54,6 +54,7 @@ const cartSlice = createSlice({
 
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+
     removeFromCart(state, action) {
       const nextCartItems = state.cartItems.filter(
         (cartItem) => cartItem._id !== action.payload._id
@@ -64,6 +65,7 @@ const cartSlice = createSlice({
         position: toast.POSITION.BOTTOM_LEFT,
       });
     },
+    
     getTotals(state, action) {
       let { total, quantity } = state.cartItems.reduce(
         (cartTotal, cartItem) => {
